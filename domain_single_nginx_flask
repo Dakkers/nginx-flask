@@ -1,0 +1,12 @@
+#this is for one domain using Nginx and Flask
+
+server {
+	listen	80;
+	server_name domain.com www.domain.com;
+
+	location / { try_files $uri @domainscript; }
+	location @domainscript {
+		include uwsgi_params;
+		uwsgi_pass unix:/tmp/uwsgi.sock;
+	}
+}

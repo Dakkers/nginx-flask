@@ -1,0 +1,23 @@
+#this is for multiple domains with Nginx and Flask
+
+server {
+	listen	80;
+	server_name domainA.com www.domainA.com;
+
+	location / { try_files $uri @domainAscript; }
+	location @domainAscript {
+		include uwsgi_params;
+		uwsgi_pass unix:/tmp/uwsgi_domainA.sock;
+	}
+}
+
+server {
+	listen	80;
+	server_name domainB.com www.domainB.com;
+
+	location / { try_files $uri @domainBscript; }
+	location @domainBscript {
+		include uwsgi_params;
+		uwsgi_pass unix:/tmp/uwsgi_domainB.sock;
+	}
+}

@@ -1,0 +1,23 @@
+#this is for multiple domains with Nginx
+
+server {
+	listen	80;
+	root	/var/www/domainA;
+	index	index.html index.htm;
+	server	domainA.com www.domainA.com;
+
+	location / {
+		try_files	$uri $uri/ /index.html;
+	}
+}
+
+server {
+	listen	80;
+	root 	/var/www/domainB;
+	index	index.html index.htm;
+	server	domainB.com www.domainB.com;
+
+	location / {
+		try_files	$uri $uri/ /index.html;
+	}
+}

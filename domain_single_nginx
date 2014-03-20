@@ -1,0 +1,12 @@
+#this is for a single domain hosted with Nginx alone, with the domain name being 'domain'
+
+server {
+	listen	80;
+	root	/var/www/domain;
+	index	index.html index.htm;
+	server_name domain.com www.domain.com
+
+	location / {
+		try_files	$uri $uri/ /index.html;
+	}
+}
